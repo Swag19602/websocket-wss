@@ -7,7 +7,6 @@ const server = http.createServer(function (request: any, response: any) {
 });
 
 const wss = new WebSocketServer({ server });
-
 wss.on("connection", function connection(ws) {
   ws.on("error", console.error);
 
@@ -17,6 +16,23 @@ wss.on("connection", function connection(ws) {
         client.send(data, { binary: isBinary });
       }
     });
+  });
+
+  ws.send("Hello! Message From Server!!");
+});
+//counter strike logic
+const connectedClients:{
+  ws: WebSocket,
+  room: string,
+}[]= []
+wss.on("connection", function connection(ws) {
+  ws.on("error", console.error);
+  connectedClients.push({ws,room:"counter-strike-room1"})
+  ws.on("message", function message(data, isBinary) {
+    connectedClients.forEach((client)=>{
+      if(client.room=== 'swagRoom')
+      client.ws.send("Swag has moved")
+    })
   });
 
   ws.send("Hello! Message From Server!!");
