@@ -4,24 +4,35 @@
 // import './App.css'
 
 // function App() {
-//   const [socket, setSocket] = useState<WebSocket | null>(null);
-
+//     const [socket, setSocket] = useState<null | WebSocket>(null)
+//     const [latestMessage, setLatestMessage] = useState("")
+//     const [message,setMessage] = useState("")
 //   useEffect(() => {
-//     const newSocket = new WebSocket('ws://localhost:8080');
-//     newSocket.onopen = () => {
-//       console.log('Connection established');
-//       newSocket.send('Hello Server!');
+//     const socket = new WebSocket('ws://localhost:8080');
+//     socket.onopen=()=>{
+//         console.log('Connected')
+//         setSocket(socket)
 //     }
-//     newSocket.onmessage = (message) => {
-//       console.log('Message received:', message.data);
+//     socket.onmessage=(message)=>{
+//         console.log('Received Message', message.data)
+//         setLatestMessage(message.data)
 //     }
-//     setSocket(newSocket);
-//     return () => newSocket.close();
 //   }, [])
-
+//   if(!socket){
+//     return <div>
+//         Connnecting to socket server......
+//     </div>
+//   }
 //   return (
 //     <>
-//       hi there
+//       <input onChange={(e)=>{
+//         setSetMessage(e.target.value)
+//       }}></input>
+//       <button onClick={()=>{
+//         socket.send(message)
+//       }}>send</button>
+//       {latestMessage}
+
 //     </>
 //   )
 // }
